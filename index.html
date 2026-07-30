@@ -1,0 +1,1274 @@
+<!--
+================================================================================
+  Project Name : التعليم الممتع | Fun Learning
+  Version      : الكسور والأعداد العشريّة للسنة 4 و5
+  Developer    : Samira Abdessadok "رنيم فاي" | سميرة عبد الصّدوق
+  Date         : جوان 2026
+  Copyright (c) 2026 Samira Abdessadok. All Rights Reserved.
+================================================================================
+-->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رنيم فاي — الكسور والأعداد العشرية</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap');
+:root{--teal:#0D9488;--teal-l:#CCFBF1;--teal-d:#0F766E;--gold:#D97706;--gold-l:#FEF3C7;--gold-d:#B45309;--rose-l:#FFE4E6;--purple:#7C3AED;--purple-l:#EDE9FE;--bg:#F0FDFA;--card:#FFFFFF;--text:#134E4A;--muted:#6B7280;--border:#E2E8F0;--success:#059669;--danger:#DC2626;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.screen{display:none;padding:16px;max-width:540px;margin:0 auto;}
+.screen.active{display:block;}
+.hdr{background:linear-gradient(135deg,#0F766E,#0D9488,#14B8A6);color:white;padding:18px 20px 14px;text-align:center;}
+.hdr h1{font-size:21px;font-weight:900;}
+.hdr p{font-size:13px;opacity:.85;margin-top:4px;}
+.brand{font-size:11px;opacity:.8;margin-bottom:2px;}
+.card{background:var(--card);border-radius:16px;padding:20px 16px;box-shadow:0 2px 12px rgba(0,0,0,.08);margin-bottom:12px;}
+.lbtn{border:none;border-radius:14px;padding:16px 20px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:12px;width:100%;margin-bottom:10px;transition:transform .15s;text-align:right;}
+.lbtn:active{transform:scale(.97);}
+.lbtn.diag{background:linear-gradient(135deg,var(--teal),#14B8A6);color:white;}
+.lbtn.g4{background:var(--gold-l);color:var(--gold-d);border:2px solid var(--gold);}
+.lbtn.g5{background:var(--purple-l);color:var(--purple);border:2px solid var(--purple);}
+.bi{font-size:26px;flex-shrink:0;}
+.bt{flex:1;}
+.bt b{display:block;font-size:15px;}
+.bt small{font-weight:400;font-size:12px;opacity:.8;}
+.phdr{background:linear-gradient(135deg,#0F766E,#0D9488);border-radius:14px;padding:14px;color:white;margin-bottom:12px;text-align:center;}
+.phdr h3{font-size:16px;font-weight:800;}
+.pb-wrap{background:rgba(255,255,255,.3);border-radius:10px;height:8px;margin-top:8px;}
+.pb-fill{background:white;border-radius:10px;height:8px;transition:width .4s;}
+.qnum{font-size:12px;color:var(--muted);margin-bottom:8px;}
+.qtext{font-size:17px;font-weight:700;text-align:center;margin-bottom:14px;line-height:1.6;}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.opt{border:2px solid var(--border);border-radius:12px;background:var(--card);padding:14px 8px;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center;min-height:58px;transition:all .15s;}
+.opt:hover{border-color:var(--teal);background:var(--teal-l);}
+.opt.ok2{border-color:var(--success);background:#D1FAE5;color:var(--success);}
+.opt.err2{border-color:var(--danger);background:var(--rose-l);color:var(--danger);}
+.fb{text-align:center;font-size:14px;font-weight:700;padding:10px;border-radius:10px;margin-top:10px;display:none;}
+.fb.show{display:block;}
+.fb.ok{background:#D1FAE5;color:var(--success);}
+.fb.err{background:var(--rose-l);color:var(--danger);}
+.nbtn{width:100%;padding:13px;border:none;border-radius:12px;background:var(--teal);color:white;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px;display:none;}
+.nbtn.show{display:block;}
+.rcard{background:var(--card);border-radius:20px;padding:26px 20px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.1);margin-top:10px;}
+.rbadge{display:inline-block;padding:7px 18px;border-radius:50px;font-size:14px;font-weight:800;margin:8px 0 14px;}
+.rbadge.g4{background:var(--gold-l);color:var(--gold-d);}
+.rbadge.g5{background:var(--purple-l);color:var(--purple);}
+.rbadge.adv{background:#D1FAE5;color:var(--success);}
+.sbtn{width:100%;padding:14px;border:none;border-radius:14px;font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;color:white;transition:transform .15s;}
+.sbtn:active{transform:scale(.97);}
+.sbtn.g4{background:linear-gradient(135deg,var(--gold),var(--gold-d));}
+.sbtn.g5{background:linear-gradient(135deg,var(--purple),#6D28D9);}
+.sbtn.adv{background:linear-gradient(135deg,var(--success),#047857);}
+.lhdr{border-radius:14px;padding:14px 16px;color:white;margin-bottom:14px;}
+.lhdr.g4{background:linear-gradient(135deg,var(--gold-d),var(--gold));}
+.lhdr.g5{background:linear-gradient(135deg,var(--purple),#6D28D9);}
+.lhdr.adv{background:linear-gradient(135deg,var(--success),#047857);}
+.lhdr h3{font-size:16px;font-weight:800;}
+.lhdr p{font-size:12px;opacity:.85;margin-top:3px;}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.tbtn{flex:1;min-width:70px;padding:9px 5px;border-radius:10px;border:2px solid var(--border);background:var(--card);font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);text-align:center;}
+.tbtn.active{border-color:var(--teal);background:var(--teal-l);color:var(--teal-d);}
+.tpane{display:none;}
+.tpane.active{display:block;}
+.lcard{background:var(--card);border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:12px;}
+.lcard h4{font-size:15px;font-weight:800;margin-bottom:10px;color:var(--teal-d);}
+.lcard p{font-size:14px;line-height:1.8;}
+.cbox{border-radius:10px;padding:12px;margin:10px 0;font-size:14px;line-height:1.8;}
+.cbox.teal{background:var(--teal-l);border-right:4px solid var(--teal);}
+.cbox.gold{background:var(--gold-l);border-right:4px solid var(--gold);}
+.cbox.purple{background:var(--purple-l);border-right:4px solid var(--purple);}
+.frac{display:inline-flex;flex-direction:column;align-items:center;font-size:20px;font-weight:800;line-height:1.2;vertical-align:middle;margin:0 4px;}
+.frac .fn{display:block;text-align:center;}
+.frac .fl{width:100%;min-width:22px;height:2.5px;background:currentColor;margin:3px 0;border-radius:2px;}
+.ofrac{display:inline-flex;flex-direction:column;align-items:center;font-size:16px;font-weight:800;line-height:1.2;}
+.ofrac .fl{width:100%;min-width:18px;height:2px;background:currentColor;margin:2px 0;}
+.exrow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:12px 0;font-size:20px;font-weight:800;}
+.coladd{font-family:monospace;font-size:18px;text-align:center;margin:10px 0;direction:ltr;}
+.addline{border-top:2px solid #333;margin:4px 0;}
+.dots{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--border);}
+.dot.ok{background:var(--success);}
+.dot.err{background:var(--danger);}
+.ctr{font-size:12px;color:var(--muted);margin-bottom:8px;}
+.finp{border:2px solid var(--border);border-radius:10px;padding:10px;font-family:inherit;font-size:20px;font-weight:800;text-align:center;width:100%;margin:10px 0;outline:none;direction:ltr;}
+.finp:focus{border-color:var(--teal);}
+.finp.ok{border-color:var(--success);background:#D1FAE5;}
+.finp.err{border-color:var(--danger);background:var(--rose-l);}
+.cbtn{width:100%;padding:12px;border:none;border-radius:12px;background:var(--teal);color:white;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;}
+.rmin{background:var(--card);border-radius:14px;padding:18px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+.rmin h3{font-size:17px;font-weight:800;margin-bottom:8px;}
+.sc{font-size:30px;font-weight:900;}
+.sc.great{color:var(--success);}
+.sc.med{color:var(--gold);}
+.sc.low{color:var(--danger);}
+.rbtn{margin-top:12px;padding:11px 24px;border:none;border-radius:10px;background:var(--teal);color:white;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;}
+.hbtn{display:block;text-align:center;margin:14px auto 0;background:none;border:2px solid var(--teal);color:var(--teal);border-radius:12px;padding:10px 20px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;}
+.mitem{border:2px solid var(--border);border-radius:10px;padding:12px 8px;font-size:15px;font-weight:700;text-align:center;cursor:pointer;transition:all .15s;background:var(--card);display:flex;align-items:center;justify-content:center;min-height:50px;}
+.mitem.sel{border-color:var(--teal);background:var(--teal-l);}
+.mitem.matched{border-color:var(--success);background:#D1FAE5;cursor:default;}
+.mitem.flash{border-color:var(--danger);background:var(--rose-l);}
+.ex-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px;}
+.ex-table th{background:var(--teal);color:white;padding:8px 5px;border:1px solid #DDD;font-weight:800;text-align:center;}
+.ex-table td{padding:7px 5px;border:1px solid #DDD;text-align:center;}
+.ex-table tr:nth-child(even) td{background:var(--teal-l);}
+.tinp{width:90%;border:2px solid var(--border);border-radius:8px;padding:5px;font-family:inherit;font-size:13px;font-weight:700;text-align:center;outline:none;direction:ltr;}
+.tinp.t-ok{border-color:var(--success);background:#D1FAE5;color:var(--success);}
+.tinp.t-err{border-color:var(--danger);background:var(--rose-l);color:var(--danger);}
+.trow{display:flex;gap:10px;margin-top:14px;}
+.trow .hbtn{flex:1;margin-top:0;}
+.twrap{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;}
+.tdisp{font-size:14px;font-weight:800;padding:5px 12px;border-radius:20px;background:var(--teal-l);color:var(--teal-d);min-width:64px;text-align:center;}
+.tdisp.warn{background:var(--gold-l);color:var(--gold-d);}
+.tdisp.danger{background:var(--rose-l);color:var(--danger);}
+.ttog{border:none;border-radius:20px;padding:5px 10px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;background:var(--border);color:var(--muted);}
+/* cert */
+#cert-ov{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.65);align-items:center;justify-content:center;padding:16px;}
+#cert-ov.show{display:flex;}
+.cbox2{background:white;border-radius:20px;width:100%;max-width:460px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.4);animation:pop .4s cubic-bezier(.175,.885,.32,1.275);}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.cs1{padding:24px 20px;text-align:center;}
+.cs1 h3{font-size:17px;font-weight:800;color:var(--teal-d);margin-bottom:8px;}
+.cs1 p{font-size:13px;color:var(--muted);margin-bottom:14px;}
+.cni{width:100%;border:2px solid var(--teal);border-radius:12px;padding:11px;font-family:inherit;font-size:17px;font-weight:700;text-align:center;outline:none;margin-bottom:12px;}
+.cgo{width:100%;padding:12px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--teal),var(--teal-d));color:white;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;}
+.cbdy{display:none;background:linear-gradient(160deg,#0f766e,#134e4a);padding:5px;}
+.cin{background:white;border-radius:14px;padding:22px 18px;text-align:center;border:3px solid var(--gold);}
+.cbn{font-size:10px;color:var(--muted);margin-bottom:3px;}
+.ctt{font-size:20px;font-weight:900;color:var(--teal-d);}
+.ctr2{font-size:52px;display:block;margin:8px 0;}
+.ctx{font-size:13px;color:#374151;line-height:1.8;}
+.cnm{font-size:20px;font-weight:900;color:var(--gold-d);margin:4px 0;}
+.clv{display:inline-block;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:800;margin:6px 0;}
+.clv.g4{background:var(--gold-l);color:var(--gold-d);}
+.clv.g5{background:var(--purple-l);color:var(--purple);}
+.clv.adv{background:#D1FAE5;color:var(--success);}
+.cst{font-size:26px;margin:4px 0;}
+.csc{font-size:12px;color:var(--muted);}
+.cdt{font-size:10px;color:var(--muted);margin-top:8px;}
+.cact{display:flex;gap:10px;padding:12px 18px 18px;background:white;}
+.cprt{flex:1;padding:11px;border:none;border-radius:10px;background:var(--teal);color:white;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;}
+.ccls{flex:1;padding:11px;border:2px solid var(--border);border-radius:10px;background:white;color:var(--muted);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;}
+/* scratchpad */
+#sb-fab{position:fixed;bottom:22px;left:18px;z-index:900;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#0D9488,#0F766E);color:white;border:none;font-size:22px;box-shadow:0 4px 16px rgba(13,148,136,.5);cursor:pointer;}
+#sb-ov{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);align-items:flex-end;justify-content:center;}
+#sb-ov.show{display:flex;}
+.sbp{background:#1e293b;width:100%;max-width:540px;border-radius:24px 24px 0 0;padding:0 0 12px;display:flex;flex-direction:column;max-height:92vh;}
+.sbtb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px 10px;border-bottom:1px solid #334155;}
+.sbob{border:none;border-radius:8px;padding:6px 11px;font-size:12px;font-weight:700;cursor:pointer;}
+.sbcol{width:26px;height:26px;border-radius:50%;border:2px solid #fff;cursor:pointer;}
+.sbcw{flex:1;margin:0 12px 4px;border-radius:12px;overflow:hidden;background:#fff;min-height:260px;max-height:55vh;}
+/* dark */
+body.dark{background:#0f172a;color:#e2e8f0;}
+body.dark .card,body.dark .lcard,body.dark .rcard,body.dark .rmin{background:#1e293b;color:#e2e8f0;}
+body.dark .opt{background:#1e293b;color:#e2e8f0;border-color:#334155;}
+body.dark .tbtn{background:#1e293b;color:#94a3b8;border-color:#334155;}
+body.dark .tbtn.active{background:#134e4a;color:#5eead4;border-color:#0D9488;}
+body.dark .cbox.teal{background:#1e3a5f;}
+body.dark .finp{background:#1e293b;color:#e2e8f0;border-color:#334155;}
+body.dark .hbtn{border-color:#0d9488;color:#5eead4;}
+#dtog{position:fixed;top:14px;left:16px;z-index:800;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.15);border:none;font-size:18px;cursor:pointer;}
+/* sort */
+.sc2{border:2px solid var(--teal);border-radius:10px;padding:10px 14px;font-size:17px;font-weight:800;cursor:grab;background:var(--teal-l);color:var(--teal-d);user-select:none;touch-action:none;}
+.ss{border:2px dashed var(--border);border-radius:10px;min-width:60px;min-height:46px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:var(--muted);}
+.ss.filled{border-style:solid;border-color:var(--success);background:#D1FAE5;color:var(--success);}
+.ss.over{border-color:var(--teal);background:var(--teal-l);}
+.ss.ws{border-color:var(--danger);background:var(--rose-l);color:var(--danger);}
+@media(max-width:380px){.opts{grid-template-columns:1fr;}}
+@media print{body>*:not(#cert-ov){display:none!important;}#cert-ov{display:flex!important;position:static!important;background:white!important;padding:0!important;}.cact,.cs1{display:none!important;}.cbdy{display:block!important;}.cbox2{box-shadow:none!important;}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="brand">رنيم فاي — التعلم الممتع</div>
+  <h1>🔢 الكسور والأعداد العشرية</h1>
+  <p>السنة الرابعة والخامسة ابتدائي</p>
+</div>
+<button id="dtog" onclick="toggleDark()">🌙</button>
+
+<!-- PASSWORD -->
+<div id="sc-password" class="screen active">
+  <div class="card" style="text-align:center;margin-top:40px;">
+    <span style="font-size:56px;display:block;margin-bottom:12px;">🔐</span>
+    <h2 style="font-size:20px;font-weight:800;color:var(--teal-d);margin-bottom:6px;">رنيم فاي — التعلم الممتع</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">أدخل كلمة المرور للدخول</p>
+    <input id="pw-inp" type="password" placeholder="كلمة المرور..." dir="ltr"
+      style="width:100%;border:2px solid var(--border);border-radius:12px;padding:13px;
+      font-family:inherit;font-size:18px;font-weight:700;text-align:center;
+      outline:none;margin-bottom:12px;transition:border-color .2s;"
+      onkeydown="if(event.key==='Enter')checkPW()"
+      onfocus="this.style.borderColor='var(--teal)'"
+      onblur="this.style.borderColor='var(--border)'"/>
+    <button onclick="checkPW()" style="width:100%;padding:14px;border:none;border-radius:12px;
+      background:linear-gradient(135deg,var(--teal),var(--teal-d));color:white;
+      font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;">
+      🔓 دخول
+    </button>
+    <div id="pw-err" style="display:none;margin-top:12px;padding:10px;border-radius:10px;
+      background:var(--rose-l);color:var(--danger);font-size:14px;font-weight:700;">
+      ❌ كلمة المرور غير صحيحة
+    </div>
+    <p style="margin-top:20px;font-size:10px;color:var(--muted);">رنيم فاي © 2026 — سميرة عبد الصّدوق</p>
+  </div>
+</div>
+
+<!-- WELCOME -->
+<div id="sc-welcome" class="screen">
+  <div class="card" style="text-align:center;margin-top:10px;">
+    <span style="font-size:60px;display:block;margin-bottom:10px;animation:float 3s ease-in-out infinite;">🧮</span>
+    <style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}</style>
+    <h2 style="font-size:20px;font-weight:800;color:var(--teal-d);margin-bottom:8px;">مرحباً بك!</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:18px;">ابدأ بالاختبار التشخيصي لتحديد مستواك تلقائياً.</p>
+    <button class="lbtn diag" onclick="startDiag()">
+      <span class="bi">🔍</span><span class="bt"><b>الاختبار التشخيصي</b><small>10 أسئلة — لتحديد مستواك</small></span>
+    </button>
+    <button class="lbtn g4" onclick="goLevel('g4')">
+      <span class="bi">🌟</span><span class="bt"><b>السنة الرابعة</b><small>الكسور العادية والعمليات</small></span>
+    </button>
+    <button class="lbtn g5" onclick="goLevel('g5')">
+      <span class="bi">🚀</span><span class="bt"><b>السنة الخامسة</b><small>الأعداد العشرية</small></span>
+    </button>
+  </div>
+</div>
+
+<!-- DIAGNOSTIC -->
+<div id="sc-diag" class="screen">
+  <button onclick="showScreen('sc-welcome')" style="display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--teal-d);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;padding:4px 0;margin-bottom:10px;">▶ الرئيسية</button>
+  <div class="phdr">
+    <h3>🔍 الاختبار التشخيصي</h3>
+    <p>اختر الإجابة الصحيحة</p>
+    <div class="pb-wrap"><div class="pb-fill" id="d-prog" style="width:0%"></div></div>
+  </div>
+  <div class="qnum" id="d-qnum">السؤال 1 من 10</div>
+  <div class="card">
+    <div class="qtext" id="d-q"></div>
+    <div class="opts" id="d-opts"></div>
+    <div class="fb" id="d-fb"></div>
+  </div>
+  <button class="nbtn" id="d-next" onclick="nextDiag()">التالي ◀</button>
+</div>
+
+<!-- DIAG RESULT -->
+<div id="sc-dresult" class="screen">
+  <div class="rcard">
+    <span style="font-size:64px;display:block;margin-bottom:10px;" id="dr-icon">🏆</span>
+    <h2 style="font-size:20px;font-weight:900;margin-bottom:6px;" id="dr-title"></h2>
+    <div style="font-size:34px;font-weight:900;margin:6px 0;" id="dr-score"></div>
+    <div class="rbadge" id="dr-badge"></div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:16px;" id="dr-desc"></p>
+    <button class="sbtn" id="dr-btn" onclick="goFromResult()">ابدأ دروسك ◀</button>
+  </div>
+  <button class="hbtn" onclick="showScreen('sc-welcome')">🏠 الرئيسية</button>
+</div>
+
+<!-- G4 -->
+<div id="sc-g4" class="screen">
+  <button onclick="showScreen('sc-welcome')" style="display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--gold-d);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;padding:4px 0;margin-bottom:10px;">▶ الرئيسية</button>
+  <div class="lhdr g4"><h3>🌟 السنة الرابعة — الكسور</h3><p>درس + تمارين متدرجة</p></div>
+  <div class="tabs">
+    <button class="tbtn active" onclick="showTab('g4','lesson')">📖 الدرس</button>
+    <button class="tbtn" onclick="showTab('g4','ex1')">✏️ تمارين</button>
+    <button class="tbtn" onclick="showTab('g4','ex2')">🎯 تحدّ</button>
+    <button class="tbtn" onclick="showTab('g4','match')">🔗 مطابقة</button>
+  </div>
+  <div id="g4-lesson" class="tpane active">
+    <div class="lcard">
+      <h4>🍕 ما هو الكسر؟</h4>
+      <p>الكسر هو جزء من كلٍّ مقسَّم إلى أجزاء متساوية.</p>
+      <div class="cbox gold">البسط فوق الخط = الأجزاء المأخوذة<br>المقام تحت الخط = مجموع الأجزاء</div>
+      <div class="exrow">
+        <span class="frac"><span class="fn">3</span><span class="fl"></span><span class="fn">4</span></span>
+        <span style="color:var(--muted);font-size:16px;">← البسط 3، المقام 4</span>
+      </div>
+    </div>
+    <div class="lcard">
+      <h4>🔄 مقارنة الكسور (نفس المقام)</h4>
+      <div class="cbox teal">نقارن البسطَين فقط عندما يكون المقام واحداً.</div>
+      <div class="exrow">
+        <span class="frac"><span class="fn">2</span><span class="fl"></span><span class="fn">5</span></span>
+        <span>&lt;</span>
+        <span class="frac"><span class="fn">4</span><span class="fl"></span><span class="fn">5</span></span>
+      </div>
+    </div>
+    <div class="lcard">
+      <h4>➕ جمع وطرح (نفس المقام)</h4>
+      <div class="cbox gold">نجمع أو نطرح البسطَين ونُبقي المقام.</div>
+      <div class="exrow">
+        <span class="frac"><span class="fn">2</span><span class="fl"></span><span class="fn">7</span></span>
+        <span>+</span>
+        <span class="frac"><span class="fn">3</span><span class="fl"></span><span class="fn">7</span></span>
+        <span>=</span>
+        <span class="frac"><span class="fn">5</span><span class="fl"></span><span class="fn">7</span></span>
+      </div>
+    </div>
+  </div>
+  <div id="g4-ex1" class="tpane">
+    <div class="twrap">
+      <span style="font-size:13px;font-weight:700;color:var(--muted);">⏱️</span>
+      <div class="tdisp" id="td-g4">00:00</div>
+      <button class="ttog" id="tt-g4" onclick="timerToggle('g4')">▶ تشغيل</button>
+      <button class="ttog" onclick="timerReset('g4')" style="color:var(--danger);">↺</button>
+    </div>
+    <div class="dots" id="g4-dots"></div>
+    <div class="ctr" id="g4-ctr"></div>
+    <div class="card" id="g4-card">
+      <div class="qtext" id="g4-q"></div>
+      <div class="opts" id="g4-opts"></div>
+      <div class="fb" id="g4-fb"></div>
+    </div>
+    <button class="nbtn" id="g4-next" onclick="nextMCQ('g4')">التالي ◀</button>
+    <div id="g4-res" class="rmin" style="display:none;"></div>
+  </div>
+  <div id="g4-ex2" class="tpane">
+    <div class="dots" id="g4c-dots"></div>
+    <div class="ctr" id="g4c-ctr"></div>
+    <div class="card" id="g4c-card">
+      <div class="qtext" id="g4c-q"></div>
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:10px;" id="g4c-hint"></p>
+      <input class="finp" id="g4c-inp" type="text" placeholder="؟" dir="ltr"/>
+      <button class="cbtn" onclick="checkFill('g4c')">✔ تحقق</button>
+      <div class="fb" id="g4c-fb"></div>
+    </div>
+    <button class="nbtn" id="g4c-next" onclick="nextFill('g4c')">التالي ◀</button>
+    <div id="g4c-res" class="rmin" style="display:none;"></div>
+  </div>
+  <div id="g4-match" class="tpane">
+    <div class="lcard" style="background:var(--gold-l);border:2px solid var(--gold);text-align:center;">
+      <h4 style="color:var(--gold-d);">🔗 صِل الكسر بالعشري المكافئ</h4>
+      <p style="font-size:13px;color:var(--muted);">اضغط على كسر ثم على العشري المقابل</p>
+    </div>
+    <div id="g4-match-board"></div>
+    <div class="fb" id="g4-match-fb" style="margin-top:8px;"></div>
+    <div id="g4-match-res" class="rmin" style="display:none;margin-top:10px;"></div>
+  </div>
+  <div class="trow">
+    <button class="hbtn" onclick="showScreen('sc-welcome')">🏠 الرئيسية</button>
+    <button class="hbtn" style="border-color:var(--gold);color:var(--gold-d);" onclick="printWS('g4')">🖨️ ورقة عمل</button>
+  </div>
+</div>
+
+<!-- G5 -->
+<div id="sc-g5" class="screen">
+  <button onclick="showScreen('sc-welcome')" style="display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--purple);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;padding:4px 0;margin-bottom:10px;">▶ الرئيسية</button>
+  <div class="lhdr g5"><h3>🚀 السنة الخامسة — الأعداد العشرية</h3><p>درس + تمارين متدرجة</p></div>
+  <div class="tabs">
+    <button class="tbtn active" onclick="showTab('g5','lesson')">📖 الدرس</button>
+    <button class="tbtn" onclick="showTab('g5','ex1')">✏️ تمارين</button>
+    <button class="tbtn" onclick="showTab('g5','ex2')">🎯 تحدّ</button>
+    <button class="tbtn" onclick="showTab('g5','match')">🔗 مطابقة</button>
+    <button class="tbtn" onclick="showTab('g5','big')">🔢 أعداد كبيرة</button>
+  </div>
+  <div id="g5-lesson" class="tpane active">
+    <div class="lcard">
+      <h4>🔢 الأعداد العشرية</h4>
+      <div class="cbox purple"><strong>مثال: 3,75</strong><br>الجزء الصحيح: 3 | الجزء العشري: 75 أي <span class="frac" style="font-size:14px;"><span class="fn">75</span><span class="fl"></span><span class="fn">100</span></span></div>
+    </div>
+    <div class="lcard">
+      <h4>↔️ الكسر ↔ العشري</h4>
+      <div class="cbox purple">
+        <span class="frac" style="font-size:15px;"><span class="fn">3</span><span class="fl"></span><span class="fn">10</span></span> = 0,3 &nbsp;&nbsp;
+        <span class="frac" style="font-size:15px;"><span class="fn">25</span><span class="fl"></span><span class="fn">100</span></span> = 0,25
+      </div>
+    </div>
+    <div class="lcard">
+      <h4>➕ جمع وطرح العشريات</h4>
+      <div class="cbox teal">نرتّب الفاصلات تحت بعضها ثم نجمع أو نطرح.</div>
+      <div class="coladd"><div>&nbsp;5,25</div><div>+ 2,40</div><div class="addline"></div><div>&nbsp;7,65</div></div>
+    </div>
+  </div>
+  <div id="g5-ex1" class="tpane">
+    <div class="twrap">
+      <span style="font-size:13px;font-weight:700;color:var(--muted);">⏱️</span>
+      <div class="tdisp" id="td-g5">00:00</div>
+      <button class="ttog" id="tt-g5" onclick="timerToggle('g5')">▶ تشغيل</button>
+      <button class="ttog" onclick="timerReset('g5')" style="color:var(--danger);">↺</button>
+    </div>
+    <div class="dots" id="g5-dots"></div>
+    <div class="ctr" id="g5-ctr"></div>
+    <div class="card" id="g5-card">
+      <div class="qtext" id="g5-q"></div>
+      <div class="opts" id="g5-opts"></div>
+      <div class="fb" id="g5-fb"></div>
+    </div>
+    <button class="nbtn" id="g5-next" onclick="nextMCQ('g5')">التالي ◀</button>
+    <div id="g5-res" class="rmin" style="display:none;"></div>
+  </div>
+  <div id="g5-ex2" class="tpane">
+    <div class="dots" id="g5c-dots"></div>
+    <div class="ctr" id="g5c-ctr"></div>
+    <div class="card" id="g5c-card">
+      <div class="qtext" id="g5c-q"></div>
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:10px;" id="g5c-hint"></p>
+      <input class="finp" id="g5c-inp" type="text" placeholder="0,__" dir="ltr"/>
+      <button class="cbtn" onclick="checkFill('g5c')">✔ تحقق</button>
+      <div class="fb" id="g5c-fb"></div>
+    </div>
+    <button class="nbtn" id="g5c-next" onclick="nextFill('g5c')">التالي ◀</button>
+    <div id="g5c-res" class="rmin" style="display:none;"></div>
+  </div>
+  <div id="g5-match" class="tpane">
+    <div class="lcard" style="background:var(--purple-l);border:2px solid var(--purple);text-align:center;">
+      <h4 style="color:var(--purple);">🔗 صِل الكسر بالعشري المكافئ</h4>
+      <p style="font-size:13px;color:var(--muted);">اضغط على كسر ثم على العشري المقابل</p>
+    </div>
+    <div id="g5-match-board"></div>
+    <div class="fb" id="g5-match-fb" style="margin-top:8px;"></div>
+    <div id="g5-match-res" class="rmin" style="display:none;margin-top:10px;"></div>
+  </div>
+  <div id="g5-big" class="tpane">
+    <div class="lcard">
+      <h4>📐 أعداد عشرية كبيرة (حتى 99999)</h4>
+      <div class="cbox purple">✅ الفاصلة تحت الفاصلة دائماً!</div>
+      <div class="coladd" style="font-size:16px;"><div>&nbsp;45 327,48</div><div>+ 31 564,75</div><div class="addline"></div><div>&nbsp;76 892,23</div></div>
+    </div>
+    <div class="lcard" style="background:var(--purple-l);border:2px solid var(--purple);">
+      <h4 style="color:var(--purple);font-size:14px;">✏️ استخدم لوحة الحساب للعمليات</h4>
+    </div>
+    <div class="dots" id="big-dots"></div>
+    <div class="ctr" id="big-ctr"></div>
+    <div class="card" id="big-card">
+      <div class="qtext" id="big-q" style="font-size:15px;"></div>
+      <div id="big-op" class="coladd" style="font-size:16px;margin:10px 0;"></div>
+      <button onclick="sbOpen()" style="display:flex;align-items:center;gap:8px;width:100%;border:2px dashed var(--purple);border-radius:10px;background:var(--purple-l);color:var(--purple);padding:10px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:10px;">✏️ افتح لوحة الحساب</button>
+      <input class="finp" id="big-inp" type="text" placeholder="اكتب الناتج..." dir="ltr"/>
+      <button class="cbtn" onclick="checkBig()">✔ تحقق</button>
+      <div class="fb" id="big-fb"></div>
+    </div>
+    <button class="nbtn" id="big-next" onclick="nextBig()">التالي ◀</button>
+    <div id="big-res" class="rmin" style="display:none;"></div>
+  </div>
+  <div class="trow">
+    <button class="hbtn" onclick="showScreen('sc-welcome')">🏠 الرئيسية</button>
+    <button class="hbtn" style="border-color:var(--purple);color:var(--purple);" onclick="printWS('g5')">🖨️ ورقة عمل</button>
+  </div>
+</div>
+
+<!-- ADV -->
+<div id="sc-adv" class="screen">
+  <div class="lhdr adv"><h3>🏆 المستوى المتقدم</h3><p>مسائل مدمجة للمتفوقين</p></div>
+  <div class="tabs">
+    <button class="tbtn active" onclick="showTab('adv','ex1')">🎯 تمارين</button>
+    <button class="tbtn" onclick="showTab('adv','ex2')">🧩 مسائل</button>
+    <button class="tbtn" onclick="showTab('adv','sort')">↕️ ترتيب</button>
+    <button class="tbtn" onclick="showTab('adv','table')">📊 الجدول</button>
+  </div>
+  <div id="adv-ex1" class="tpane active">
+    <div class="dots" id="adv-dots"></div>
+    <div class="ctr" id="adv-ctr"></div>
+    <div class="card" id="adv-card">
+      <div class="qtext" id="adv-q"></div>
+      <div class="opts" id="adv-opts"></div>
+      <div class="fb" id="adv-fb"></div>
+    </div>
+    <button class="nbtn" id="adv-next" onclick="nextMCQ('adv')">التالي ◀</button>
+    <div id="adv-res" class="rmin" style="display:none;"></div>
+  </div>
+  <div id="adv-ex2" class="tpane">
+    <div class="dots" id="advc-dots"></div>
+    <div class="ctr" id="advc-ctr"></div>
+    <div class="card" id="advc-card">
+      <div class="qtext" id="advc-q"></div>
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:10px;" id="advc-hint"></p>
+      <input class="finp" id="advc-inp" type="text" placeholder="..." dir="ltr"/>
+      <button class="cbtn" onclick="checkFill('advc')">✔ تحقق</button>
+      <div class="fb" id="advc-fb"></div>
+    </div>
+    <button class="nbtn" id="advc-next" onclick="nextFill('advc')">التالي ◀</button>
+    <div id="advc-res" class="rmin" style="display:none;"></div>
+  </div>
+  <div id="adv-sort" class="tpane">
+    <div class="lcard" style="background:#D1FAE5;border:2px solid var(--success);text-align:center;">
+      <h4 style="color:var(--success);">↕️ رتّب الأعداد تصاعدياً</h4>
+      <p style="font-size:13px;color:var(--muted);">اسحب البطاقات من الأصغر إلى الأكبر</p>
+    </div>
+    <div id="sort-info" style="font-size:13px;font-weight:700;color:var(--muted);text-align:center;margin-bottom:8px;"></div>
+    <div id="sort-items" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:12px 0;min-height:56px;"></div>
+    <div style="text-align:center;font-size:13px;color:var(--muted);margin-bottom:8px;">⬇️ ضع هنا من الأصغر إلى الأكبر</div>
+    <div id="sort-slots" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:12px;min-height:52px;"></div>
+    <button class="cbtn" onclick="checkSort()" style="margin-bottom:10px;">✔ تحقق</button>
+    <div class="fb" id="sort-fb"></div>
+    <div id="sort-res" class="rmin" style="display:none;margin-top:10px;"></div>
+  </div>
+  <div id="adv-table" class="tpane">
+    <div class="lcard" style="background:#E0F2FE;border:2px solid #0EA5E9;text-align:center;">
+      <h4 style="color:#0284C7;">📊 أكمل الجدول</h4>
+      <p style="font-size:13px;color:var(--muted);">حوّل بين الكسر والعشري والنسبة المئوية</p>
+    </div>
+    <div id="tbl-wrap"></div>
+    <button class="cbtn" id="tbl-check" onclick="checkTable()" style="margin:10px 0;">✔ تحقق</button>
+    <div class="fb" id="tbl-fb"></div>
+    <div id="tbl-res" class="rmin" style="display:none;margin-top:10px;"></div>
+  </div>
+  <div class="trow">
+    <button class="hbtn" onclick="showScreen('sc-welcome')">🏠 الرئيسية</button>
+    <button class="hbtn" style="border-color:var(--success);color:var(--success);" onclick="printWS('adv')">🖨️ ورقة عمل</button>
+  </div>
+</div>
+
+<!-- CERT -->
+<div id="cert-ov">
+  <div class="cbox2">
+    <div class="cs1" id="cert-s1">
+      <h3>🎉 أحسنت! حصلت على شهادة</h3>
+      <p>اكتب اسمك ليظهر على الشهادة</p>
+      <input class="cni" id="cert-ni" type="text" placeholder="اسمك هنا..." maxlength="40"/>
+      <button class="cgo" onclick="showCert()">🏅 اعرض شهادتي</button>
+    </div>
+    <div class="cbdy" id="cert-bd">
+      <div class="cin">
+        <div class="cbn">رنيم فاي — التعلم الممتع</div>
+        <div class="ctt">🎓 شهادة إتمام</div>
+        <span class="ctr2">🏆</span>
+        <div class="ctx">يُشهد بأن الطالب/ة</div>
+        <div class="cnm" id="c-nm"></div>
+        <div class="ctx">أتمّ/أتمّت بنجاح مستوى</div>
+        <div class="clv" id="c-lv"></div>
+        <div class="cst" id="c-st"></div>
+        <div class="csc" id="c-sc"></div>
+        <div class="cdt" id="c-dt"></div>
+        <div style="font-size:28px;margin:6px 0;">🌟✨🌟</div>
+        <div style="font-size:10px;color:#9CA3AF;margin-top:6px;">رنيم فاي © 2026 — سميرة عبد الصّدوق</div>
+      </div>
+      <div class="cact">
+        <button class="cprt" onclick="window.print()">🖨️ طباعة</button>
+        <button class="ccls" onclick="closeCert()">✕ إغلاق</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRATCHPAD -->
+<button id="sb-fab" onclick="sbOpen()">✏️</button>
+<div id="sb-ov">
+  <div class="sbp">
+    <div class="sbtb">
+      <span style="color:#e2e8f0;font-size:13px;font-weight:800;margin-left:auto;">✏️ لوحة الحساب</span>
+      <button class="sbob" id="sb-pen" onclick="sbTool('pen')" style="background:#0D9488;color:white;outline:2px solid #5eead4;">🖊 قلم</button>
+      <button class="sbob" id="sb-era" onclick="sbTool('era')" style="background:#334155;color:#e2e8f0;">◻ ممحاة</button>
+      <button class="sbob" onclick="sbClear()" style="background:#DC2626;color:white;">🗑</button>
+      <button class="sbob" onclick="sbClose()" style="background:#475569;color:white;">✕</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;flex-wrap:wrap;">
+      <button class="sbcol" data-c="#1e3a5f" onclick="sbColor('#1e3a5f')" style="background:#1e3a5f;outline:3px solid #fff;"></button>
+      <button class="sbcol" data-c="#DC2626" onclick="sbColor('#DC2626')" style="background:#DC2626;"></button>
+      <button class="sbcol" data-c="#059669" onclick="sbColor('#059669')" style="background:#059669;"></button>
+      <button class="sbcol" data-c="#D97706" onclick="sbColor('#D97706')" style="background:#D97706;"></button>
+      <button class="sbcol" data-c="#7C3AED" onclick="sbColor('#7C3AED')" style="background:#7C3AED;"></button>
+      <button class="sbcol" data-c="#0EA5E9" onclick="sbColor('#0EA5E9')" style="background:#0EA5E9;"></button>
+      <input type="range" min="1" max="14" value="3" oninput="sbSz=parseInt(this.value)" style="width:80px;accent-color:#0D9488;margin-right:auto;">
+    </div>
+    <div class="sbcw" id="sb-wrap">
+      <canvas id="sb-cv" style="display:block;touch-action:none;width:100%;height:100%;"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== DATA ===== */
+var DQ=[
+  {q:'أيّ كسر يمثّل ثلاثة أجزاء من سبعة؟',o:['3/7','7/3','3/4','7/4'],a:0},
+  {q:'ما البسط في الكسر 5/8 ؟',o:['8','5','1','3'],a:1},
+  {q:'أيّ الكسرَين أكبر؟ (مقام 9)',o:['2/9','7/9','1/9','4/9'],a:1},
+  {q:'2/6 + 3/6 = ؟',o:['5/6','5/12','1/3','6/5'],a:0},
+  {q:'5/8 - 2/8 = ؟',o:['3/8','3/16','7/8','2/8'],a:0},
+  {q:'ما قيمة 0,7 كسراً؟',o:['7/10','7/100','0,07','7/1'],a:0},
+  {q:'رتّب تصاعدياً: 0,5 — 0,15 — 0,9',o:['0,15 ثم 0,5 ثم 0,9','0,9 ثم 0,5 ثم 0,15','0,5 ثم 0,15 ثم 0,9','غير ذلك'],a:0},
+  {q:'2,3 + 1,5 = ؟',o:['3,8','3,85','4,8','3,08'],a:0},
+  {q:'4,75 - 2,25 = ؟',o:['2,5','2,25','2,75','3,5'],a:0},
+  {q:'أيّ عدد أكبر من 3,6 ؟',o:['3,59','3,06','3,61','3,60'],a:2},
+];
+var G4Q=[
+  {q:'ما مقام الكسر 4/9 ؟',o:['4','9','1','3'],a:1},
+  {q:'3/5 + 1/5 = ؟',o:['4/5','4/10','2/5','5/5'],a:0},
+  {q:'أيّ الكسرَين أصغر؟ (مقام 12)',o:['7/12','11/12','3/12','12/12'],a:2},
+  {q:'8/11 - 5/11 = ؟',o:['3/11','13/11','3/22','8/5'],a:0},
+  {q:'الكسر المكافئ لـ 2/4 هو:',o:['1/2','1/4','3/4','2/8'],a:0},
+  {q:'1/3 + 1/3 + 1/3 = ؟',o:['3/9','3/3','1','الأخيران صحيحان'],a:3},
+  {q:'كسر بسطه 3 ومقامه 8:',o:['8/3','3/8','3×8','3-8'],a:1},
+  {q:'9/10 - 4/10 = ؟',o:['5/10','13/10','5/20','4/10'],a:0},
+];
+var G4F=[
+  {q:'2/7 + 4/7 = ؟/7',h:'اجمع البسطَين',a:'6'},
+  {q:'أكمل: 3/9 = ؟/3',h:'اختصر الكسر',a:'1'},
+  {q:'7/12 - 3/12 = ؟',h:'اطرح البسطَين',a:'4/12'},
+  {q:'كسر يساوي النصف بمقام 8 = ؟/8',h:'',a:'4'},
+  {q:'1/4 + 2/4 = ؟/4',h:'',a:'3'},
+];
+var G5Q=[
+  {q:'0,25 = ؟',o:['25/10','1/4','2/5','1/25'],a:1},
+  {q:'1,5 + 2,3 = ؟',o:['3,8','3,53','4,8','3,08'],a:0},
+  {q:'أيّ عدد أكبر؟',o:['4,09','4,9','4,19','4,1'],a:1},
+  {q:'5,60 - 2,30 = ؟',o:['3,3','3,30','2,30','3,09'],a:1},
+  {q:'7/10 = ؟',o:['0,07','0,7','7,0','7,1'],a:1},
+  {q:'0,8 × 10 = ؟',o:['0,08','8','80','0,80'],a:1},
+  {q:'3,14 + 0,86 = ؟',o:['4,00','4','4,0','الثلاثة صحيحة'],a:3},
+  {q:'أصغر: 0,3 أم 0,30 أم 0,03 ؟',o:['0,3','0,30','0,03','متساوية'],a:2},
+];
+var G5F=[
+  {q:'0,4 + 0,3 = ؟',h:'',a:'0,7'},
+  {q:'3/10 = 0,?',h:'اكتب العشري',a:'0,3'},
+  {q:'1,8 - 0,5 = ؟',h:'',a:'1,3'},
+  {q:'5,25 + 2,75 = ؟',h:'',a:'8'},
+  {q:'25/100 = 0,?',h:'',a:'0,25'},
+];
+var ADVQ=[
+  {q:'3/4 = 0,?',o:['0,34','0,75','0,7','0,3'],a:1},
+  {q:'0,6 + 3/10 = ؟',o:['0,9','0,63','0,3','6,3'],a:0},
+  {q:'أيّ الأعداد أكبر؟',o:['1/2','0,49','0,5','متساوية'],a:2},
+  {q:'1,25 = ؟ + 1/4',o:['1','0,25','1,5','0,75'],a:0},
+  {q:'اختصر: 6/8',o:['3/4','2/3','6/8','1/2'],a:0},
+  {q:'7/100 = 0,0?',o:['0,07','0,7','0,007','0,70'],a:0},
+  {q:'3/5 + 0,2 = ؟',o:['0,8','0,5','0,62','3,7'],a:0},
+  {q:'0,75 + 1/4 = ؟',o:['1','0,100','1,75','0,50'],a:0},
+];
+var ADVF=[
+  {q:'1/5 = 0,?',h:'',a:'0,2'},
+  {q:'0,75 = ؟/4',h:'حوّل إلى كسر',a:'3/4'},
+  {q:'2,5 - 1/2 = ؟',h:'',a:'2'},
+  {q:'3/4 + 0,5 = ؟',h:'',a:'1,25'},
+  {q:'0,4 × 5 = ؟',h:'',a:'2'},
+];
+var BQ=[
+  {q:'احسب: 23 415,50 + 14 362,25',op:['23 415,50','+ 14 362,25'],a:'37 777,75',b:'37777,75'},
+  {q:'احسب: 48 736,40 + 31 218,35',op:['48 736,40','+ 31 218,35'],a:'79 954,75',b:'79954,75'},
+  {q:'مزرعة إنتاجها 56 342,75 لتر و 31 540,50 لتر. ما المجموع؟',op:['56 342,75','+ 31 540,50'],a:'87 883,25',b:'87883,25'},
+  {q:'احسب: 87 543,60 − 34 218,35',op:['87 543,60','- 34 218,35'],a:'53 325,25',b:'53325,25'},
+  {q:'احسب: 95 700,80 − 42 350,55',op:['95 700,80','- 42 350,55'],a:'53 350,25',b:'53350,25'},
+  {q:'مستودع 78 640,50 كغ. بيع 45 320,25 كغ. كم تبقّى؟',op:['78 640,50','- 45 320,25'],a:'33 320,25',b:'33320,25'},
+  {q:'احسب: 99 999,99 − 54 321,75',op:['99 999,99','- 54 321,75'],a:'45 678,24',b:'45678,24'},
+  {q:'ميزانية 82 500,00 دج. صُرف 47 348,75 دج. ما المتبقّي؟',op:['82 500,00','- 47 348,75'],a:'35 151,25',b:'35151,25'},
+];
+var MS={
+  g4:[{f:'1/2',d:'0,5'},{f:'1/4',d:'0,25'},{f:'3/4',d:'0,75'},{f:'1/5',d:'0,2'},{f:'2/5',d:'0,4'},{f:'3/5',d:'0,6'}],
+  g5:[{f:'7/10',d:'0,7'},{f:'3/100',d:'0,03'},{f:'1/4',d:'0,25'},{f:'9/10',d:'0,9'},{f:'1/20',d:'0,05'},{f:'3/4',d:'0,75'}]
+};
+var TR=[
+  {f:'1/2',d:'0,5',p:'50%',g:'f'},{f:'1/4',d:'0,25',p:'25%',g:'d'},
+  {f:'3/4',d:'0,75',p:'75%',g:'p'},{f:'1/5',d:'0,2',p:'20%',g:'f'},
+  {f:'2/5',d:'0,4',p:'40%',g:'d'},{f:'3/5',d:'0,6',p:'60%',g:'p'},
+  {f:'7/10',d:'0,7',p:'70%',g:'f'},{f:'3/10',d:'0,3',p:'30%',g:'d'},
+];
+var SS=[
+  {i:['1/2','1/4','3/4','1/8'],v:[0.5,0.25,0.75,0.125]},
+  {i:['0,3','0,7','0,15','0,9'],v:[0.3,0.7,0.15,0.9]},
+  {i:['2/5','1/5','4/5','3/10'],v:[0.4,0.2,0.8,0.3]},
+  {i:['0,25','3/4','1/2','0,1'],v:[0.25,0.75,0.5,0.1]},
+];
+
+/* ===== STATE ===== */
+var di=0,ds=0,dd=false,dlv='g4';
+var MQ={g4:{qs:G4Q,i:0,s:0,done:false,sc:[]},g5:{qs:G5Q,i:0,s:0,done:false,sc:[]},adv:{qs:ADVQ,i:0,s:0,done:false,sc:[]}};
+var MF={g4c:{qs:G4F,i:0,s:0,sc:[]},g5c:{qs:G5F,i:0,s:0,sc:[]},advc:{qs:ADVF,i:0,s:0,sc:[]}};
+var BI={i:0,s:0,go:false,sc:[]};
+var mSt={};
+var tmr={};
+var srt={r:0};
+var dark=false;
+var cCtx={lv:'',s:0,t:0};
+var sbSz=3,sbTl='pen',sbClr='#1e3a5f',sbDraw=false,sbLX=0,sbLY=0,sbCtx=null,sbIn=false;
+
+/* ===== HELPERS ===== */
+function oH(t){return t.replace(/(\d+)\/(\d+)/g,function(_,n,d){return '<span class="ofrac"><span>'+n+'</span><span class="fl"></span><span>'+d+'</span></span>';});}
+function qH(t){return t.replace(/(\d+)\/(\d+)/g,function(_,n,d){return '<span class="frac" style="font-size:19px"><span class="fn">'+n+'</span><span class="fl"></span><span class="fn">'+d+'</span></span>';});}
+function stN(p){return p>=0.9?5:p>=0.7?4:p>=0.5?3:p>=0.3?2:1;}
+function stH(n){var h='';for(var i=1;i<=5;i++)h+=i<=n?'⭐':'☆';return h;}
+function shf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=a[i];a[i]=a[j];a[j]=x;}return a;}
+function eq(a,b){var c=function(s){return s.trim().replace(/\s/g,'').replace(',','.');};return c(a)===c(b);}
+
+/* ============================================================
+   مفتاح تفعيل الصوت — أول لمسة في أي مكان
+   يعمل داخل WebView فيسبوك / ماسنجر / Android
+   رنيم فاي © 2026
+============================================================ */
+var audioUnlocked = false;
+var pendingAudio  = null;
+
+function unlockAudio() {
+  if (audioUnlocked) return;
+  audioUnlocked = true;
+
+  // 1. تفعيل AudioContext
+  try {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) {
+      var ctx = new AC();
+      var buf = ctx.createBuffer(1, 1, 22050);
+      var src = ctx.createBufferSource();
+      src.buffer = buf;
+      src.connect(ctx.destination);
+      src.start(0);
+      window._audioCtx = ctx;
+    }
+  } catch(e) {}
+
+  // 2. تفعيل speechSynthesis بنبضة صامتة
+  try {
+    if (window.speechSynthesis) {
+      var u = new SpeechSynthesisUtterance(' ');
+      u.volume = 0;
+      u.lang   = 'ar-SA';
+      window.speechSynthesis.speak(u);
+    }
+  } catch(e) {}
+
+  // 3. تشغيل النص المعلّق إن وُجد
+  if (pendingAudio) {
+    var t = pendingAudio;
+    pendingAudio = null;
+    setTimeout(function(){ speak(t); }, 300);
+  }
+
+  // 4. إزالة المستمعَين
+  document.body.removeEventListener('touchstart', unlockAudio, true);
+  document.body.removeEventListener('click',      unlockAudio, true);
+}
+
+document.body.addEventListener('touchstart', unlockAudio, { capture: true, once: true });
+document.body.addEventListener('click',      unlockAudio, { capture: true, once: true });
+
+/* ============================================================
+   TTS مع دعم الحالة المعلّقة
+============================================================ */
+var synth      = window.speechSynthesis || null;
+var isSpeaking = false;
+
+function getArVoice() {
+  try {
+    var all = synth ? synth.getVoices() : [];
+    return all.find(function(v){ return v.lang === 'ar-SA'; })
+        || all.find(function(v){ return v.lang === 'ar-EG'; })
+        || all.find(function(v){ return v.lang === 'ar-DZ'; })
+        || all.find(function(v){ return v.lang.startsWith('ar'); })
+        || null;
+  } catch(e) { return null; }
+}
+
+function speak(text) {
+  if (!text) return;
+
+  if (!audioUnlocked) {
+    pendingAudio = text;
+    return;
+  }
+
+  if (!synth) return;
+  try { synth.cancel(); } catch(e) {}
+  isSpeaking = true;
+
+  setTimeout(function() {
+    try {
+      if (synth.paused) { try { synth.resume(); } catch(e){} }
+
+      var u = new SpeechSynthesisUtterance(text);
+      var v = getArVoice();
+      if (v) u.voice = v;
+      u.lang   = 'ar-SA';
+      u.rate   = 0.80;
+      u.pitch  = 1.0;
+      u.volume = 1.0;
+
+      u.onend   = function() { isSpeaking = false; };
+      u.onerror = function(e) {
+        isSpeaking = false;
+        if (e.error !== 'interrupted' && e.error !== 'canceled') {
+          setTimeout(function(){ speak(text); }, 600);
+        }
+      };
+
+      // Watchdog لـ WebView فيسبوك
+      var started = false;
+      u.onstart = function() { started = true; };
+      setTimeout(function() {
+        if (!started && isSpeaking) {
+          isSpeaking = false;
+          try { synth.cancel(); } catch(e){}
+          setTimeout(function(){ speak(text); }, 400);
+        }
+      }, 2500);
+
+      synth.speak(u);
+    } catch(e) { isSpeaking = false; }
+  }, 200);
+}
+
+/* دالة spk مختصرة للاستخدام الداخلي */
+function spk(t){ speak(t); }
+function shf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=a[i];a[i]=a[j];a[j]=x;}return a;}
+function eq(a,b){var c=function(s){return s.trim().replace(/\s/g,'').replace(',','.');};return c(a)===c(b);}
+
+/* ===== NAVIGATION ===== */
+function showScreen(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function goLevel(lv){showScreen('sc-'+lv);}
+function goFromResult(){goLevel(dlv);}
+
+/* ===== PASSWORD ===== */
+function checkPW(){
+  var val=document.getElementById('pw-inp').value.trim();
+  var err=document.getElementById('pw-err');
+  if(val==='رنيم2026'){
+    err.style.display='none';
+    showScreen('sc-welcome');
+  } else {
+    err.style.display='block';
+    document.getElementById('pw-inp').value='';
+    document.getElementById('pw-inp').focus();
+  }
+}
+
+/* ===== TABS ===== */
+function showTab(lv,tab){
+  var sc=document.getElementById('sc-'+lv);
+  sc.querySelectorAll('.tbtn').forEach(function(b){b.classList.remove('active');});
+  sc.querySelectorAll('.tpane').forEach(function(p){p.classList.remove('active');});
+  var pane=document.getElementById(lv+'-'+tab);
+  if(pane)pane.classList.add('active');
+  var lmap={lesson:'الدرس',ex1:'تمارين',ex2:'تحدّ',match:'مطابقة',big:'أعداد كبيرة',sort:'ترتيب',table:'الجدول'};
+  var lbl=lmap[tab]||tab;
+  sc.querySelectorAll('.tbtn').forEach(function(b){if(b.textContent.indexOf(lbl)>=0)b.classList.add('active');});
+  if(tab==='ex1'&&MQ[lv]&&MQ[lv].i===0&&!MQ[lv].done)renderMCQ(lv);
+  if(tab==='ex2'){var k=lv+'c';if(MF[k]&&MF[k].i===0)renderFill(k);}
+  if(tab==='match'&&!mSt[lv])initMatch(lv);
+  if(tab==='big'&&!BI.go)renderBig();
+  if(tab==='sort')initSort();
+  if(tab==='table'){var tw=document.getElementById('tbl-wrap');if(tw&&tw.innerHTML==='')initTable();}
+}
+
+/* ===== DIAG ===== */
+function startDiag(){di=0;ds=0;dd=false;showScreen('sc-diag');renderDiag();}
+function renderDiag(){
+  var q=DQ[di];
+  document.getElementById('d-qnum').textContent='السؤال '+(di+1)+' من '+DQ.length;
+  document.getElementById('d-prog').style.width=(di/DQ.length*100)+'%';
+  document.getElementById('d-q').innerHTML=qH(q.q);
+  dd=false;
+  var fb=document.getElementById('d-fb');fb.className='fb';fb.textContent='';
+  document.getElementById('d-next').classList.remove('show');
+  var g=document.getElementById('d-opts');g.innerHTML='';
+  q.o.forEach(function(o,i){var b=document.createElement('button');b.className='opt';b.innerHTML=oH(o);b.onclick=function(){ansDiag(i);};g.appendChild(b);});
+}
+function ansDiag(i){
+  if(dd)return;dd=true;
+  var q=DQ[di];
+  var bs=document.getElementById('d-opts').querySelectorAll('.opt');
+  bs.forEach(function(b){b.disabled=true;});
+  var fb=document.getElementById('d-fb');
+  if(i===q.a){bs[i].classList.add('ok2');ds++;fb.textContent='✅ أحسنت!';fb.className='fb ok show';spk('أحسنت');}
+  else{bs[i].classList.add('err2');bs[q.a].classList.add('ok2');fb.innerHTML='❌ الإجابة: '+oH(q.o[q.a]);fb.className='fb err show';}
+  document.getElementById('d-next').classList.add('show');
+}
+function nextDiag(){di++;if(di<DQ.length)renderDiag();else showDiagRes();}
+function showDiagRes(){
+  var p=ds/DQ.length,lv,ic,tt,dc,cl;
+  if(p<=0.4){lv='g4';ic='🌱';tt='ستتحسن قريباً!';dc='سنبدأ من السنة الرابعة.';cl='g4';}
+  else if(p<=0.7){lv='g5';ic='⭐';tt='أداء جيد!';dc='ننتقل للأعداد العشرية.';cl='g5';}
+  else{lv='adv';ic='🏆';tt='ممتاز!';dc='جرّب التمارين المتقدمة.';cl='adv';}
+  dlv=lv;
+  document.getElementById('dr-icon').textContent=ic;
+  document.getElementById('dr-title').textContent=tt;
+  document.getElementById('dr-score').textContent=ds+'/'+DQ.length;
+  var b=document.getElementById('dr-badge');b.textContent=cl==='g4'?'السنة الرابعة':cl==='g5'?'السنة الخامسة':'المستوى المتقدم';b.className='rbadge '+cl;
+  document.getElementById('dr-desc').textContent=dc;
+  document.getElementById('dr-btn').className='sbtn '+cl;
+  showScreen('sc-dresult');
+}
+
+/* ===== MCQ ===== */
+function renderMCQ(k){
+  var st=MQ[k];if(!st)return;
+  if(st.i>=st.qs.length){showMCQRes(k);return;}
+  var q=st.qs[st.i];
+  rdots(k+'-dots',st.qs.length,st.i,st.sc);
+  document.getElementById(k+'-ctr').textContent='السؤال '+(st.i+1)+' من '+st.qs.length;
+  st.done=false;
+  document.getElementById(k+'-q').innerHTML=qH(q.q);
+  var fb=document.getElementById(k+'-fb');fb.className='fb';fb.textContent='';
+  document.getElementById(k+'-next').classList.remove('show');
+  var g=document.getElementById(k+'-opts');g.innerHTML='';
+  q.o.forEach(function(o,i){var b=document.createElement('button');b.className='opt';b.innerHTML=oH(o);b.onclick=function(){ansMCQ(k,i);};g.appendChild(b);});
+  var r=document.getElementById(k+'-res');if(r)r.style.display='none';
+  var c=document.getElementById(k+'-card');if(c)c.style.display='';
+}
+function ansMCQ(k,i){
+  var st=MQ[k];if(!st||st.done)return;st.done=true;
+  var q=st.qs[st.i];
+  var bs=document.getElementById(k+'-opts').querySelectorAll('.opt');
+  bs.forEach(function(b){b.disabled=true;});
+  var ok=i===q.a;
+  var fb=document.getElementById(k+'-fb');
+  if(ok){bs[i].classList.add('ok2');st.s++;st.sc.push(true);fb.textContent='✅ أحسنت!';fb.className='fb ok show';spk('أحسنت');}
+  else{bs[i].classList.add('err2');bs[q.a].classList.add('ok2');st.sc.push(false);fb.innerHTML='❌ الإجابة: '+oH(q.o[q.a]);fb.className='fb err show';}
+  udot(k+'-dots',st.i,ok);
+  document.getElementById(k+'-next').classList.add('show');
+}
+function nextMCQ(k){MQ[k].i++;if(MQ[k].i<MQ[k].qs.length)renderMCQ(k);else showMCQRes(k);}
+function showMCQRes(k){
+  var st=MQ[k];
+  var c=document.getElementById(k+'-card');if(c)c.style.display='none';
+  var n=document.getElementById(k+'-next');if(n)n.classList.remove('show');
+  var r=document.getElementById(k+'-res');if(!r)return;
+  var p=st.s/st.qs.length,cl=p>=0.8?'great':p>=0.5?'med':'low';
+  r.innerHTML='<div style="font-size:48px">'+(p>=0.8?'🏆':p>=0.5?'👍':'💪')+'</div><h3>انتهت التمارين!</h3><div class="sc '+cl+'">'+st.s+'/'+st.qs.length+'</div><p style="margin-top:8px;font-size:13px;color:var(--muted)">'+(p>=0.8?'ممتاز!':p>=0.5?'جيد! راجع الدرس.':'راجع الدرس وأعد المحاولة.')+'</p><button class="rbtn" onclick="retryMCQ(\''+k+'\')">🔄 أعد التمرين</button>';
+  r.style.display='block';
+  if(p>=0.5)setTimeout(function(){triggerCert(k,st.s,st.qs.length);},900);
+}
+function retryMCQ(k){var st=MQ[k];st.i=0;st.s=0;st.done=false;st.sc=[];renderMCQ(k);}
+
+/* ===== FILL ===== */
+function renderFill(k){
+  var st=MF[k];if(!st)return;
+  if(st.i>=st.qs.length){showFillRes(k);return;}
+  var q=st.qs[st.i];
+  rdots(k+'-dots',st.qs.length,st.i,st.sc);
+  document.getElementById(k+'-ctr').textContent='السؤال '+(st.i+1)+' من '+st.qs.length;
+  document.getElementById(k+'-q').innerHTML=qH(q.q);
+  document.getElementById(k+'-hint').textContent=q.h||'اكتب الإجابة:';
+  var inp=document.getElementById(k+'-inp');inp.value='';inp.className='finp';inp.disabled=false;
+  var fb=document.getElementById(k+'-fb');fb.className='fb';fb.textContent='';
+  document.getElementById(k+'-next').classList.remove('show');
+  var r=document.getElementById(k+'-res');if(r)r.style.display='none';
+  var c=document.getElementById(k+'-card');if(c)c.style.display='';
+}
+function checkFill(k){
+  var st=MF[k];if(!st)return;
+  var q=st.qs[st.i];
+  var inp=document.getElementById(k+'-inp');
+  var ok=eq(inp.value,q.a);
+  inp.disabled=true;inp.className='finp '+(ok?'ok':'err');
+  var fb=document.getElementById(k+'-fb');
+  if(ok){fb.textContent='✅ صحيح!';fb.className='fb ok show';st.s++;st.sc.push(true);spk('أحسنت');}
+  else{fb.textContent='❌ الجواب: '+q.a;fb.className='fb err show';st.sc.push(false);}
+  udot(k+'-dots',st.i,ok);
+  document.getElementById(k+'-next').classList.add('show');
+}
+function nextFill(k){MF[k].i++;if(MF[k].i<MF[k].qs.length)renderFill(k);else showFillRes(k);}
+function showFillRes(k){
+  var st=MF[k];
+  var c=document.getElementById(k+'-card');if(c)c.style.display='none';
+  var n=document.getElementById(k+'-next');if(n)n.classList.remove('show');
+  var r=document.getElementById(k+'-res');if(!r)return;
+  var p=st.s/st.qs.length,cl=p>=0.8?'great':p>=0.5?'med':'low';
+  r.innerHTML='<div style="font-size:48px">'+(p>=0.8?'🏆':p>=0.5?'👍':'💪')+'</div><h3>تمّ التحدي!</h3><div class="sc '+cl+'">'+st.s+'/'+st.qs.length+'</div><button class="rbtn" onclick="retryFill(\''+k+'\')">🔄 أعد التحدي</button>';
+  r.style.display='block';
+  if(p>=0.5)setTimeout(function(){triggerCert(k.replace('c',''),st.s,st.qs.length);},900);
+}
+function retryFill(k){MF[k].i=0;MF[k].s=0;MF[k].sc=[];renderFill(k);}
+
+/* ===== BIG NUMBERS ===== */
+function renderBig(){
+  BI.go=true;
+  if(BI.i>=BQ.length){showBigRes();return;}
+  var q=BQ[BI.i];
+  rdots('big-dots',BQ.length,BI.i,BI.sc);
+  document.getElementById('big-ctr').textContent='السؤال '+(BI.i+1)+' من '+BQ.length;
+  document.getElementById('big-q').textContent=q.q;
+  document.getElementById('big-op').innerHTML='<div>'+q.op[0]+'</div><div>'+q.op[1]+'</div><div class="addline"></div>';
+  var inp=document.getElementById('big-inp');inp.value='';inp.className='finp';inp.disabled=false;
+  var fb=document.getElementById('big-fb');fb.className='fb';fb.textContent='';
+  document.getElementById('big-next').classList.remove('show');
+  document.getElementById('big-res').style.display='none';
+  document.getElementById('big-card').style.display='';
+}
+function checkBig(){
+  var q=BQ[BI.i];
+  var inp=document.getElementById('big-inp');
+  var ok=eq(inp.value,q.a)||(q.b&&eq(inp.value,q.b));
+  inp.disabled=true;inp.className='finp '+(ok?'ok':'err');
+  var fb=document.getElementById('big-fb');
+  if(ok){fb.textContent='✅ أحسنت!';fb.className='fb ok show';BI.s++;BI.sc.push(true);spk('أحسنت');}
+  else{fb.textContent='❌ الجواب: '+q.a;fb.className='fb err show';BI.sc.push(false);}
+  udot('big-dots',BI.i,ok);
+  document.getElementById('big-next').classList.add('show');
+}
+function nextBig(){BI.i++;if(BI.i<BQ.length)renderBig();else showBigRes();}
+function showBigRes(){
+  document.getElementById('big-card').style.display='none';
+  document.getElementById('big-next').classList.remove('show');
+  var r=document.getElementById('big-res');
+  var p=BI.s/BQ.length,cl=p>=0.8?'great':p>=0.5?'med':'low';
+  r.innerHTML='<div style="font-size:48px">'+(p>=0.8?'🏆':p>=0.5?'👍':'💪')+'</div><h3>انتهت المسائل!</h3><div class="sc '+cl+'">'+BI.s+'/'+BQ.length+'</div><button class="rbtn" onclick="retryBig()">🔄 أعد المسائل</button>';
+  r.style.display='block';
+  if(p>=0.5)setTimeout(function(){triggerCert('g5',BI.s,BQ.length);},900);
+}
+function retryBig(){BI.i=0;BI.s=0;BI.sc=[];BI.go=false;renderBig();}
+
+/* ===== MATCHING ===== */
+function initMatch(lv){
+  var pairs=MS[lv];if(!pairs)return;
+  mSt[lv]={pairs:pairs,done:0,errors:0,sf:null,sd:null};
+  var bd=document.getElementById(lv+'-match-board');
+  var fr=pairs.map(function(p,i){return{t:p.f,i:i};});
+  var dc=pairs.map(function(p,i){return{t:p.d,i:i};});
+  shf(fr);shf(dc);
+  var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;"><div style="display:flex;flex-direction:column;gap:8px;">';
+  fr.forEach(function(f){html+='<button class="mitem" id="'+lv+'-f'+f.i+'" data-i="'+f.i+'" data-t="f" onclick="mSel(\''+lv+'\',this)">'+oH(f.t)+'</button>';});
+  html+='</div><div style="display:flex;flex-direction:column;gap:8px;">';
+  dc.forEach(function(d){html+='<button class="mitem" id="'+lv+'-d'+d.i+'" data-i="'+d.i+'" data-t="d" onclick="mSel(\''+lv+'\',this)">'+d.t+'</button>';});
+  html+='</div></div>';
+  bd.innerHTML=html;
+  var fb=document.getElementById(lv+'-match-fb');fb.className='fb';fb.textContent='';
+  document.getElementById(lv+'-match-res').style.display='none';
+}
+function mSel(lv,btn){
+  var st=mSt[lv];if(!st||btn.classList.contains('matched'))return;
+  var t=btn.dataset.t,i=parseInt(btn.dataset.i);
+  if(t==='f'){
+    if(st.sf!=null){var ob=document.getElementById(lv+'-f'+st.sf);if(ob)ob.classList.remove('sel');}
+    st.sf=i;btn.classList.add('sel');
+  }else{
+    if(st.sd!=null){var ob2=document.getElementById(lv+'-d'+st.sd);if(ob2)ob2.classList.remove('sel');}
+    st.sd=i;btn.classList.add('sel');
+  }
+  if(st.sf!=null&&st.sd!=null){
+    var fb=document.getElementById(lv+'-match-fb');
+    var fb2=document.getElementById(lv+'-f'+st.sf);
+    var db=document.getElementById(lv+'-d'+st.sd);
+    if(st.sf===st.sd){
+      fb2.classList.remove('sel');fb2.classList.add('matched');fb2.disabled=true;
+      db.classList.remove('sel');db.classList.add('matched');db.disabled=true;
+      st.done++;fb.textContent='✅ صحيح!';fb.className='fb ok show';spk('أحسنت');
+      if(st.done===st.pairs.length)setTimeout(function(){showMRes(lv);},600);
+    }else{
+      st.errors++;
+      fb2.classList.add('flash');db.classList.add('flash');
+      fb.textContent='❌ حاول مرة أخرى!';fb.className='fb err show';
+      setTimeout(function(){fb2.classList.remove('flash','sel');db.classList.remove('flash','sel');},700);
+    }
+    st.sf=null;st.sd=null;
+  }
+}
+function showMRes(lv){
+  var st=mSt[lv];
+  var r=document.getElementById(lv+'-match-res');
+  var stars=stN(st.pairs.length/(st.pairs.length+st.errors));
+  r.innerHTML='<div style="font-size:48px">🎊</div><h3>اكتملت المطابقة!</h3><div style="font-size:26px;margin:6px 0;">'+stH(stars)+'</div><p style="font-size:13px;color:var(--muted);">أخطاء: '+st.errors+'</p><button class="rbtn" onclick="initMatch(\''+lv+'\')">🔄 جولة جديدة</button>';
+  r.style.display='block';
+  setTimeout(function(){triggerCert(lv,st.pairs.length,st.pairs.length+st.errors);},800);
+}
+
+/* ===== SORT ===== */
+function initSort(){srt.r=0;renderSort();}
+function renderSort(){
+  var set=SS[srt.r%SS.length];
+  document.getElementById('sort-info').textContent='الجولة '+(srt.r+1)+' من '+SS.length;
+  var shfd=set.i.map(function(v,i){return{t:v,v:set.v[i]};});shf(shfd);
+  var ie=document.getElementById('sort-items');ie.innerHTML='';
+  shfd.forEach(function(it,si){
+    var c=document.createElement('div');c.className='sc2';c.id='sc-'+si;
+    c.innerHTML=oH(it.t);c.dataset.v=it.v;c.draggable=true;
+    c.addEventListener('dragstart',function(e){e.dataTransfer.setData('text/plain',si);c.style.opacity='.4';});
+    c.addEventListener('dragend',function(){c.style.opacity='1';});
+    c.addEventListener('touchstart',function(e){e.preventDefault();srt.tc=c;},{passive:false});
+    c.addEventListener('touchend',function(e){
+      e.preventDefault();c.style.opacity='1';
+      var t=e.changedTouches[0];
+      var el=document.elementFromPoint(t.clientX,t.clientY);
+      var sl=el?el.closest('.ss'):null;
+      if(sl&&!sl.dataset.filled){sl.innerHTML=c.innerHTML;sl.classList.add('filled');sl.dataset.filled=c.dataset.v;c.style.visibility='hidden';}
+      srt.tc=null;
+    },{passive:false});
+    ie.appendChild(c);
+  });
+  var se=document.getElementById('sort-slots');se.innerHTML='';
+  set.i.forEach(function(_,i){
+    var s=document.createElement('div');s.className='ss';s.dataset.idx=i;s.textContent=i+1;
+    s.addEventListener('dragover',function(e){e.preventDefault();s.classList.add('over');});
+    s.addEventListener('dragleave',function(){s.classList.remove('over');});
+    s.addEventListener('drop',function(e){
+      e.preventDefault();s.classList.remove('over');if(s.dataset.filled)return;
+      var si2=parseInt(e.dataTransfer.getData('text/plain'));
+      var card=document.getElementById('sc-'+si2);if(!card)return;
+      s.innerHTML=card.innerHTML;s.classList.add('filled');s.dataset.filled=card.dataset.v;card.style.visibility='hidden';
+    });
+    se.appendChild(s);
+  });
+  var fb=document.getElementById('sort-fb');fb.className='fb';fb.textContent='';
+  document.getElementById('sort-res').style.display='none';
+}
+function checkSort(){
+  var fb=document.getElementById('sort-fb');
+  var slots=document.getElementById('sort-slots').querySelectorAll('.ss');
+  var vals=[];var all=true;
+  slots.forEach(function(s){if(!s.dataset.filled)all=false;else vals.push(parseFloat(s.dataset.filled));});
+  if(!all){fb.textContent='⚠️ ضع كل الأعداد في الخانات!';fb.className='fb err show';return;}
+  var ok=true;for(var i=1;i<vals.length;i++)if(vals[i]<vals[i-1]){ok=false;break;}
+  if(ok){
+    fb.textContent='✅ ترتيب صحيح! أحسنت.';fb.className='fb ok show';spk('أحسنت');
+    setTimeout(function(){
+      srt.r++;
+      if(srt.r<SS.length)renderSort();
+      else{document.getElementById('sort-res').innerHTML='<div style="font-size:48px">🏆</div><h3>أكملت كل الجولات!</h3><div style="font-size:26px;">'+stH(5)+'</div><button class="rbtn" onclick="initSort()">🔄 جولة جديدة</button>';document.getElementById('sort-res').style.display='block';}
+    },1200);
+  }else{
+    slots.forEach(function(s){s.classList.add('ws');});
+    fb.textContent='❌ الترتيب غير صحيح.';fb.className='fb err show';
+    setTimeout(function(){slots.forEach(function(s){s.classList.remove('ws');});},800);
+  }
+}
+
+/* ===== TABLE ===== */
+function initTable(){
+  var w=document.getElementById('tbl-wrap');
+  var h='<table class="ex-table"><thead><tr><th>الكسر</th><th>العشري</th><th>%</th></tr></thead><tbody>';
+  TR.forEach(function(r,i){
+    h+='<tr>';
+    ['f','d','p'].forEach(function(c){
+      var key=c==='f'?'f':c==='d'?'d':'p';
+      var gk=c==='f'?'f':c==='d'?'d':'p';
+      if(r.g===gk){h+='<td style="font-weight:800;font-size:15px;">'+oH(r[key])+'</td>';}
+      else{h+='<td><input class="tinp" id="ti-'+i+'-'+c+'" type="text" placeholder="؟" dir="ltr"/></td>';}
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  w.innerHTML=h;
+  document.getElementById('tbl-fb').className='fb';
+  document.getElementById('tbl-res').style.display='none';
+  document.getElementById('tbl-check').style.display='';
+}
+function checkTable(){
+  var cor=0,tot=0;
+  TR.forEach(function(r,i){
+    var mp={'f':'f','d':'d','p':'p'};
+    ['f','d','p'].forEach(function(c){
+      if(r.g===c)return;tot++;
+      var inp=document.getElementById('ti-'+i+'-'+c);if(!inp)return;
+      var val=r[c==='f'?'f':c==='d'?'d':'p'];
+      var ok=eq(inp.value,val);
+      inp.className='tinp '+(ok?'t-ok':'t-err');
+      if(ok)cor++;
+    });
+  });
+  var fb=document.getElementById('tbl-fb');
+  var p=cor/tot;
+  fb.textContent=p===1?'✅ ممتاز! كل الإجابات صحيحة.':'✏️ '+cor+'/'+tot+' — راجع الخلايا الحمراء.';
+  fb.className='fb '+(p>=0.5?'ok':'err')+' show';
+  if(p>=0.5)spk('أحسنت');
+  if(p===1){
+    document.getElementById('tbl-check').style.display='none';
+    document.getElementById('tbl-res').innerHTML='<div style="font-size:48px">🏆</div><h3>جدول مكتمل!</h3><div style="font-size:26px;">'+stH(5)+'</div><button class="rbtn" onclick="initTable()">🔄 جولة جديدة</button>';
+    document.getElementById('tbl-res').style.display='block';
+    setTimeout(function(){triggerCert('adv',cor,tot);},900);
+  }
+}
+
+/* ===== DOTS ===== */
+function rdots(id,tot,idx,sc){var el=document.getElementById(id);if(!el)return;el.innerHTML='';for(var i=0;i<tot;i++){var d=document.createElement('div');d.className='dot'+(i<idx?(sc[i]?' ok':' err'):'');el.appendChild(d);}}
+function udot(id,idx,ok){var el=document.getElementById(id);if(!el)return;var ds=el.querySelectorAll('.dot');if(ds[idx])ds[idx].className='dot '+(ok?'ok':'err');}
+
+/* ===== TIMER ===== */
+function timerToggle(k){
+  if(!tmr[k])tmr[k]={s:0,on:false,iv:null};
+  var t=tmr[k];
+  if(t.on){clearInterval(t.iv);t.on=false;document.getElementById('tt-'+k).textContent='▶ تشغيل';}
+  else{
+    t.on=true;document.getElementById('tt-'+k).textContent='⏸ إيقاف';
+    t.iv=setInterval(function(){
+      t.s++;var el=document.getElementById('td-'+k);if(!el){clearInterval(t.iv);return;}
+      var m=Math.floor(t.s/60),s=t.s%60;
+      el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+      el.className='tdisp'+(t.s>180?' danger':t.s>90?' warn':'');
+    },1000);
+  }
+}
+function timerReset(k){
+  if(tmr[k]){clearInterval(tmr[k].iv);tmr[k]={s:0,on:false,iv:null};}
+  var el=document.getElementById('td-'+k);if(el){el.textContent='00:00';el.className='tdisp';}
+  var tt=document.getElementById('tt-'+k);if(tt)tt.textContent='▶ تشغيل';
+}
+
+/* ===== CERT ===== */
+function triggerCert(lv,s,t){
+  cCtx={lv:lv,s:s,t:t};
+  var sn=localStorage.getItem('rfN')||'';
+  if(sn)document.getElementById('cert-ni').value=sn;
+  document.getElementById('cert-s1').style.display='';
+  document.getElementById('cert-bd').style.display='none';
+  document.getElementById('cert-ov').classList.add('show');
+}
+function showCert(){
+  var nm=document.getElementById('cert-ni').value.trim()||'الطالب/ة';
+  localStorage.setItem('rfN',nm);
+  var p=cCtx.s/cCtx.t,stars=stN(p);
+  var lm={g4:'السنة الرابعة — الكسور',g5:'السنة الخامسة — الأعداد العشرية',adv:'المستوى المتقدم',g4c:'السنة الرابعة',g5c:'السنة الخامسة',advc:'المتقدم'};
+  var lc={g4:'g4',g5:'g5',adv:'adv',g4c:'g4',g5c:'g5',advc:'adv'};
+  document.getElementById('c-nm').textContent=nm;
+  document.getElementById('c-lv').textContent=lm[cCtx.lv]||cCtx.lv;
+  document.getElementById('c-lv').className='clv '+(lc[cCtx.lv]||'g5');
+  document.getElementById('c-st').textContent=stH(stars);
+  document.getElementById('c-sc').textContent='النتيجة: '+cCtx.s+'/'+cCtx.t+' ('+Math.round(p*100)+'%)';
+  document.getElementById('c-dt').textContent='بتاريخ: '+new Date().toLocaleDateString('ar-DZ');
+  document.getElementById('cert-s1').style.display='none';
+  document.getElementById('cert-bd').style.display='block';
+}
+function closeCert(){document.getElementById('cert-ov').classList.remove('show');}
+
+/* ===== DARK ===== */
+function toggleDark(){dark=!dark;document.body.classList.toggle('dark',dark);document.getElementById('dtog').textContent=dark?'☀️':'🌙';localStorage.setItem('rfD',dark?'1':'0');}
+
+/* ===== SCRATCHPAD ===== */
+function sbOpen(){document.getElementById('sb-ov').classList.add('show');sbInit();}
+function sbClose(){document.getElementById('sb-ov').classList.remove('show');}
+function sbInit(){
+  if(sbIn)return;sbIn=true;
+  var cv=document.getElementById('sb-cv');
+  var wr=document.getElementById('sb-wrap');
+  cv.width=wr.clientWidth||320;cv.height=wr.clientHeight||300;
+  sbCtx=cv.getContext('2d');sbCtx.fillStyle='#fff';sbCtx.fillRect(0,0,cv.width,cv.height);
+  cv.addEventListener('mousedown',function(e){sbDraw=true;sbLX=e.offsetX;sbLY=e.offsetY;});
+  cv.addEventListener('mousemove',function(e){if(sbDraw)sbD(e.offsetX,e.offsetY);});
+  cv.addEventListener('mouseup',function(){sbDraw=false;});
+  cv.addEventListener('touchstart',function(e){e.preventDefault();sbDraw=true;var r=cv.getBoundingClientRect(),t=e.touches[0];sbLX=t.clientX-r.left;sbLY=t.clientY-r.top;},{passive:false});
+  cv.addEventListener('touchmove',function(e){e.preventDefault();if(!sbDraw)return;var r=cv.getBoundingClientRect(),t=e.touches[0];sbD(t.clientX-r.left,t.clientY-r.top);},{passive:false});
+  cv.addEventListener('touchend',function(){sbDraw=false;});
+}
+function sbD(x,y){sbCtx.beginPath();sbCtx.moveTo(sbLX,sbLY);sbCtx.lineTo(x,y);sbCtx.strokeStyle=sbTl==='era'?'#fff':sbClr;sbCtx.lineWidth=sbTl==='era'?22:sbSz;sbCtx.lineCap='round';sbCtx.stroke();sbLX=x;sbLY=y;}
+function sbTool(t){sbTl=t;document.getElementById('sb-pen').style.background=t==='pen'?'#0D9488':'#334155';document.getElementById('sb-era').style.background=t==='era'?'#0D9488':'#334155';}
+function sbColor(c){sbClr=c;sbTool('pen');document.querySelectorAll('.sbcol').forEach(function(b){b.style.outline=b.dataset.c===c?'3px solid #fff':'none';});}
+function sbClear(){if(sbCtx){sbCtx.fillStyle='#fff';sbCtx.fillRect(0,0,document.getElementById('sb-cv').width,document.getElementById('sb-cv').height);}}
+
+/* ===== PRINT ===== */
+function printWS(lv){
+  var d={
+    g4:{t:'ورقة عمل — الكسور | السنة الرابعة',c:'#B45309',
+      i:['2/5 + 1/5 = ___','3/8 + 4/8 = ___','1/6 + 4/6 = ___','5/9 + 2/9 = ___',
+         '7/9 - 3/9 = ___','5/8 - 2/8 = ___','6/7 - 1/7 = ___','4/5 - 1/5 = ___',
+         '3/7  ○  5/7','4/8  ○  1/8','6/11  ○  3/11','1/4  ○  3/4']},
+    g5:{t:'ورقة عمل — الأعداد العشرية | السنة الخامسة',c:'#6D28D9',
+      i:['1,5 + 2,3 = ___','4,25 + 1,50 = ___','3,7 + 2,6 = ___','7,08 + 2,92 = ___',
+         '5,8 - 2,3 = ___','7,50 - 3,25 = ___','10,0 - 4,5 = ___','9,75 - 6,25 = ___',
+         '45 327,48 + 31 564,75 = ___','87 543,60 - 34 218,35 = ___']},
+    adv:{t:'ورقة عمل مدمجة | المستوى المتقدم',c:'#047857',
+      i:['3/4 + 0,5 = ___','1/2 - 0,2 = ___','0,6 + 2/5 = ___','3/5 - 0,3 = ___',
+         'مسألة: اشترى أحمد 2,75 كغ خضر و 1,5 كغ فواكه. ما الوزن الكلي؟\n\nالحل: _______________',
+         'مسألة: في وعاء 8,5 لتر. صُب منه 3,75 لتر. كم تبقّى؟\n\nالحل: _______________']}
+  };
+  var ws=d[lv];if(!ws)return;
+  var w=window.open('','_blank','width=800,height=900');if(!w)return;
+  var h='<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">'
+    +'<st'+'yle>body{font-family:Arial;padding:20px;direction:rtl;font-size:14px;}'
+    +'.hd{text-align:center;border-bottom:3px solid '+ws.c+';padding-bottom:10px;margin-bottom:16px;}'
+    +'.tt{font-size:17px;font-weight:900;color:'+ws.c+';}'
+    +'.if{display:flex;justify-content:space-between;font-size:12px;color:#555;margin-top:5px;}'
+    +'.gr{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}'
+    +'.it{font-size:14px;font-weight:700;padding:8px;border-bottom:1px solid #EEE;white-space:pre-wrap;}'
+    +'.ft{margin-top:20px;text-align:center;font-size:10px;color:#999;border-top:1px solid #EEE;padding-top:6px;}'
+    +'@media print{@page{margin:10mm}}<\/st'+'yle><\/head><body>'
+    +'<div class="hd"><div style="font-size:11px;color:#666;margin-bottom:3px;">رنيم فاي — التعلم الممتع<\/div>'
+    +'<div class="tt">'+ws.t+'<\/div>'
+    +'<div class="if"><span>الاسم: ___________________________<\/span><span>التاريخ: ______________<\/span><\/div><\/div>'
+    +'<div class="gr">';
+  ws.i.forEach(function(it){h+='<div class="it">'+it+'<\/div>';});
+  h+='<\/div><div class="ft">رنيم فاي \u00a9 2026 \u2014 سميرة عبد الصّدوق<\/div><\/body><\/html>';
+  w.document.write(h);w.document.close();setTimeout(function(){w.print();},500);
+}
+
+/* ===== INIT ===== */
+window.onload=function(){
+  if(localStorage.getItem('rfD')==='1')toggleDark();
+  var sn=localStorage.getItem('rfN')||'';
+  if(sn)document.getElementById('cert-ni').value=sn;
+};
+</script>
+</body>
+</html>
